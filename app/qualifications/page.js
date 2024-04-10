@@ -6,10 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import UniversityQualifications from "@/lib/web3/universityQualifications";
 
-async function QualificationsPage() {
+async function QualificationsPage({searchParams}) {
 
   const studentAddress = "0x775e22e991fdA0E0c089c8D860e1E2CD0068D314";
 
@@ -20,6 +19,7 @@ async function QualificationsPage() {
     <main className="h-screen p-10 flex flex-col gap-3">
       <h1>Qualifications for {studentAddress}</h1>
       <h2>{name ? name : "No name provided"}</h2>
+      <h3>{searchParams?.user || "No User provided"}</h3>
       {data.length == 0 ? "No data" : data.map((qualification, index) => (
       <Card key={index}>
         <CardHeader>

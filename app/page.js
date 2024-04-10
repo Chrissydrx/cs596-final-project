@@ -1,9 +1,7 @@
 "use client"
- 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
- 
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useRouter } from 'next/navigation';
  
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -23,15 +22,20 @@ const formSchema = z.object({
 })
 
 export default function Home() {
+  const router = useRouter(); 
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
     },
   })
+
  
-  function onSubmit(values) {
-    console.log(values)
+  function onSubmit(value) {
+    const queryParams = { user: value.username};
+    const queryString = new URLSearchParams(queryParams).toString();
+    router.push(`/qualifications?${queryString}`);
   }
   return (
     <main className="h-screen p-20 flex flex-col justify-center">
