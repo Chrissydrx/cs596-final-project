@@ -34,14 +34,15 @@ export default function Home() {
     console.log(values)
   }
   return (
-    <main>
+    <main className="h-screen p-20 flex flex-col justify-center">
       <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col justify-center">
         <FormField
           control={form.control}
+          className="flex flex-col justify-center"
           name="username"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="flex flex-col items-center justify-center">
               <FormLabel>Full Name</FormLabel>
               <FormControl>
                 <Input placeholder="Your Name" {...field} />
