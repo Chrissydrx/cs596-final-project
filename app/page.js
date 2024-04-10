@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useRouter } from 'next/navigation';
- 
+
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -33,10 +33,9 @@ export default function Home() {
 
  
   function onSubmit(value) {
-    const queryParams = { user: value.username};
-    const queryString = new URLSearchParams(queryParams).toString();
-    router.push(`/qualifications?${queryString}`);
+    router.push(`/qualifications/${value.username}`);
   }
+  
   return (
     <main className="h-screen p-20 flex flex-col justify-center">
       <Form {...form}>
