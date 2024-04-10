@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Important
+
+If you redeploy the smart contract, you have to change the smart contract address in the .env file. Also, you have to update the abi in the /utils/web3/abi.js file.
+
 ## Getting Started
 
 First, run the development server:
