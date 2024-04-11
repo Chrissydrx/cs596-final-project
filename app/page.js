@@ -1,9 +1,7 @@
 "use client"
- 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
- 
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,39 +13,45 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
- 
+import { useRouter } from 'next/navigation';
+
 const formSchema = z.object({
   username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Address must be at least 2 characters.",
   }),
 })
 
 export default function Home() {
+  const router = useRouter(); 
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
     },
   })
+
  
-  function onSubmit(values) {
-    console.log(values)
+  function onSubmit(value) {
+    router.push(`/qualifications/${value.username}`);
   }
+  
   return (
-    <main>
+    <main className="h-screen p-20 flex flex-col justify-center">
       <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col justify-center">
         <FormField
           control={form.control}
+          className="flex flex-col justify-center"
           name="username"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
+            <FormItem className="flex flex-col items-center justify-center">
+              <FormLabel>Public Address</FormLabel>
               <FormControl>
-                <Input placeholder="Your Name" {...field} />
+                <Input placeholder="Your Address" {...field} />
               </FormControl>
               <FormDescription>
-                This name is used to search for your qualifications.
+                Search for qualifications from a specific public address
               </FormDescription>
               <FormMessage />
             </FormItem>
