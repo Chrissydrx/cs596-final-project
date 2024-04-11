@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Address must be at least 2 characters.",
   }),
 })
 
@@ -46,12 +46,12 @@ export default function Home() {
           name="username"
           render={({ field }) => (
             <FormItem className="flex flex-col items-center justify-center">
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>Public Address</FormLabel>
               <FormControl>
-                <Input placeholder="Your Name" {...field} />
+                <Input placeholder="Your Address" {...field} />
               </FormControl>
               <FormDescription>
-                This name is used to search for your qualifications.
+                Search for qualifications from a specific public address
               </FormDescription>
               <FormMessage />
             </FormItem>
