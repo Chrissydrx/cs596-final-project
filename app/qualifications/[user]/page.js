@@ -11,7 +11,7 @@ import UniversityQualifications from "@/lib/web3/universityQualifications";
 import { Qualification } from "@/lib/structures";
 
 async function QualificationsPage({ params }) {
-  //0x775e22e991fdA0E0c089c8D860e1E2CD0068D314
+  
   const studentAddress = params?.user || "No User provided";
 
   const data = await UniversityQualifications.getQualifications(studentAddress);
