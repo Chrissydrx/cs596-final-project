@@ -1,4 +1,5 @@
 "use client";
+import LoginButton from "@/lib/components/login-button";
 import { Button } from "@/lib/components/ui/button";
 import {
   Form,
@@ -37,6 +38,8 @@ export default function Home() {
 
   return (
     <main className="h-screen p-20 flex flex-col justify-center">
+      <LoginButton className="fixed top-1 right-1" />
+
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

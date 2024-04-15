@@ -5,7 +5,7 @@ import saveAddress from "@/lib/actions/saveAddress";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
-function LoginButton() {
+function LoginButton({ className }) {
   const connectWalletHandler = async () => {
     if (typeof window.ethereum !== "undefined") {
       try {
@@ -16,13 +16,17 @@ function LoginButton() {
         const address = accounts[0];
 
         await saveAddress(address);
-        setAddress(address);
+        redirectToAction();
       } catch (error) {
         console.error("Error connecting to MetaMask:", error);
       }
     } else {
       alert("Please install MetaMask!");
     }
+  };
+
+  const redirectToAction = () => {
+    window.location.href = "/action";
   };
 
   const [address, setAddress] = useState(null);
@@ -38,11 +42,17 @@ function LoginButton() {
 
   if (address == null) {
     return (
-      <Button onClick={connectWalletHandler}>Connect MetaMask Wallet</Button>
+      <Button className={className} onClick={connectWalletHandler}>
+        Connect MetaMask Wallet
+      </Button>
     );
   }
 
-  return <p>{address}</p>;
+  return (
+    <Button className={className} onClick={redirectToAction}>
+      {address}
+    </Button>
+  );
 }
 
 export default LoginButton;
