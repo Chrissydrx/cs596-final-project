@@ -1,6 +1,6 @@
 "use client";
 
-import writeCookie from "@/lib/actions/writeCookie";
+import saveAddress from "@/lib/actions/saveAddress";
 
 const Page = () => {
   const connectWalletHandler = async () => {
@@ -12,7 +12,7 @@ const Page = () => {
         });
         const address = accounts[0];
 
-        await writeCookie(address);
+        await saveAddress(address);
       } catch (error) {
         console.error("Error connecting to MetaMask:", error);
       }
