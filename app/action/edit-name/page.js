@@ -5,29 +5,43 @@ import { useEffect, useState } from "react";
 
 function Page() {
   const [smartContractClient, setSmartContractClient] = useState(null);
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setSmartContractClient(new SmartContractClient());
+    setSmartContractClient(SmartContractClient);
   }, []);
 
-  const callContract = async () => smartContractClient.addName("Test2");
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
 
-  return <button onClick={callContract}>Call Contract</button>;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  /*
+    setIsLoading(true);
+    try {
+      await smartContractClient.addName(name);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <>J
-      <h1>Edit Name</h1>
-      <form>
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={name}
+        onChange={handleChange}
+        style={{ border: "2px solid black" }}
+      />
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Loading..." : "Submit"}
+      </button>
+    </form>
   );
-  */
 }
 
 export default Page;
