@@ -1,4 +1,4 @@
-import getAddress from "@/lib/actions/getAddress";
+import getAddress from "@/lib/actions/get-address";
 import { NextResponse } from "next/server";
 
 export async function middleware(request) {

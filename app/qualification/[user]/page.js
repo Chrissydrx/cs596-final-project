@@ -5,16 +5,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/lib/components/ui/card";
-import UniversityQualifications from "@/lib/web3/universityQualifications";
+} from "@/components/ui/card";
+import SmartContractServer from "@/lib/web3/smart-contract-server";
 
 import { Qualification } from "@/lib/structures";
 
 async function QualificationsPage({ params }) {
   const studentAddress = params?.user || "No User provided";
 
-  const data = await UniversityQualifications.getQualifications(studentAddress);
-  const name = await UniversityQualifications.getName(studentAddress);
+  const data = await SmartContractServer.getQualifications(studentAddress);
+  const name = await SmartContractServer.getName(studentAddress);
 
   return (
     <main className="h-screen p-10 flex flex-col gap-3">
