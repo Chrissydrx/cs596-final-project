@@ -17,8 +17,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Address must be at least 2 characters.",
+  ethAddress: z.string()
+    .regex(/^0x[a-fA-F0-9]{40}$/, {
+    message: "Invalid Ethereum address. Must start with '0x' followed by 40 hexadecimal characters."
   }),
 });
 
@@ -28,7 +29,7 @@ export default function Home() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      ethAddress: "",
     },
   });
 
@@ -48,7 +49,7 @@ export default function Home() {
           <FormField
             control={form.control}
             className="flex flex-col justify-center"
-            name="username"
+            name="ethAddress"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center justify-center">
                 <FormLabel>Public Address</FormLabel>
