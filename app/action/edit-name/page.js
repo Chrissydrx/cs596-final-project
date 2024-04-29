@@ -1,16 +1,11 @@
 "use client";
 
 import SmartContractClient from "@/lib/web3/smart-contract-client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Page() {
-  const [smartContractClient, setSmartContractClient] = useState(null);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setSmartContractClient(SmartContractClient);
-  }, []);
 
   const handleChange = (event) => {
     setName(event.target.value);
@@ -21,7 +16,7 @@ function Page() {
 
     setIsLoading(true);
     try {
-      await smartContractClient.addName(name);
+      await SmartContractClient().addName(name);
     } catch (error) {
       console.error(error);
     } finally {

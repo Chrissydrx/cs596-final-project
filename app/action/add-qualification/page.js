@@ -1,19 +1,14 @@
 "use client";
 
 import SmartContractClient from "@/lib/web3/smart-contract-client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Page() {
-  const [smartContractClient, setSmartContractClient] = useState(null);
   const [studentAddress, setStudentAddress] = useState("");
   const [qualificationName, setQualificationName] = useState("");
   const [qualificationDescription, setQualificationDescription] = useState("");
   const [qualificationType, setQualificationType] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setSmartContractClient(SmartContractClient);
-  }, []);
 
   const handleStudentAddress = (event) => {
     setStudentAddress(event.target.value);
@@ -36,7 +31,7 @@ function Page() {
 
     setIsLoading(true);
     try {
-      await smartContractClient.addQualification(
+      await SmartContractClient().addQualification(
         studentAddress,
         qualificationName,
         qualificationDescription,
