@@ -1,10 +1,10 @@
-import SmartContractServer from "@/lib/web3/smart-contract-server";
+import { cookies } from "next/headers";
 import AddressWrapper from "./components/address-wrapper";
 
-async function Page() {
-  const applicants = (await SmartContractServer.getApplicants()) || [];
+function Page() {
+  const address = cookies().get("address").value;
 
-  return <AddressWrapper applicants={applicants} />;
+  return <AddressWrapper address={address} />;
 }
 
 export default Page;
