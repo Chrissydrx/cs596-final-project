@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import getAddress from "@/lib/actions/get-address";
-import saveAddress from "@/lib/actions/save-address";
+import createSession from "@/lib/actions/create-session";
+import getSession from "@/lib/actions/get-session";
+import SmartContractClient from "@/lib/web3/smart-contract-client";
 import { useEffect, useState } from "react";
 
 function LoginButton({ className }) {
@@ -19,7 +20,11 @@ function LoginButton({ className }) {
         }
 
         const address = accounts[0];
-        await saveAddress(address);
+
+        const isRegisteredUniversity =
+          await SmartContractClient().isRegisteredUniversity(address);
+
+        await createSession(address, isRegisteredUniversity);
         redirectToAction();
       } catch (error) {
         console.error("Error connecting to MetaMask:", error);
@@ -37,7 +42,7 @@ function LoginButton({ className }) {
 
   useEffect(() => {
     const fetchAddress = async () => {
-      const address = await getAddress();
+      const [address, _] = await getSession();
       setAddress(address);
     };
 
