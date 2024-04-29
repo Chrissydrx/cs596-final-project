@@ -1,8 +1,10 @@
 "use client";
 
+import SmartContractClient from "@/lib/web3/smart-contract-client";
+
 import { useState } from "react";
 
-function AddressCard({ smartContractClient, applicant }) {
+function AddressCard({ applicant, setActionCount }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event, buttonType) => {
@@ -10,9 +12,8 @@ function AddressCard({ smartContractClient, applicant }) {
 
     setIsLoading(true);
     try {
-      console.log("applicant", applicant);
-      console.log("buttonType", buttonType);
-      await smartContractClient.vote(applicant, buttonType);
+      await SmartContractClient().vote(applicant, buttonType);
+      setActionCount((prev) => prev + 1);
     } catch (error) {
       console.error(error);
     } finally {
