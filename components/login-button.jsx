@@ -9,12 +9,16 @@ function LoginButton({ className }) {
   const connectWalletHandler = async () => {
     if (typeof window.ethereum !== "undefined") {
       try {
-        // Request account access
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        const address = accounts[0];
 
+        if (accounts.length === 0) {
+          console.error("No account found");
+          return;
+        }
+
+        const address = accounts[0];
         await saveAddress(address);
         redirectToAction();
       } catch (error) {
