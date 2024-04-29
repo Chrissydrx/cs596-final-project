@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Important
 
-If you redeploy the smart contract, you have to change the smart contract address in the .env file. Also, you have to update the abi in the /utils/web3/abi.js file.
+If you redeploy the smart contract, you have to change the smart contract address in the .env file. Also, you have to update the abi in the /utils/web3/abi.js file. It also necessary to update the contract address in smart-contract-client.js in the constructor function.
 
 ## Getting Started
 
