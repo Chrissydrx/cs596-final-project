@@ -17,9 +17,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  ethAddress: z.string()
-    .regex(/^0x[a-fA-F0-9]{40}$/, {
-    message: "Invalid Ethereum address. Must start with '0x' followed by 40 hexadecimal characters."
+  ethAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, {
+    message:
+      "Invalid Ethereum address. Must start with '0x' followed by 40 hexadecimal characters.",
   }),
 });
 
@@ -34,7 +34,7 @@ export default function Home() {
   });
 
   function onSubmit(value) {
-    router.push(`/qualification/${value.username}`);
+    router.push(`/qualification/${value.ethAddress}`);
   }
 
   return (
