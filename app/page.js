@@ -1,6 +1,6 @@
 "use client";
-import LoginButton from "@/lib/components/login-button";
-import { Button } from "@/lib/components/ui/button";
+import LoginButton from "@/components/login-button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,8 +9,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/lib/components/ui/form";
-import { Input } from "@/lib/components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -34,7 +34,7 @@ export default function Home() {
   });
 
   function onSubmit(value) {
-    router.push(`/qualifications/${value.ethAddress}`);
+    router.push(`/qualification/${value.username}`);
   }
 
   return (

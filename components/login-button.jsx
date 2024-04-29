@@ -1,9 +1,9 @@
 "use client";
 
-import getAddress from "@/lib/actions/getAddress";
-import saveAddress from "@/lib/actions/saveAddress";
+import { Button } from "@/components/ui/button";
+import getAddress from "@/lib/actions/get-address";
+import saveAddress from "@/lib/actions/save-address";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
 
 function LoginButton({ className }) {
   const connectWalletHandler = async () => {
