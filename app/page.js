@@ -1,13 +1,12 @@
 "use client";
 import LoginButton from "@/components/login-button";
+import TypographyH1 from "@/components/typography/typography-h1";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -42,27 +41,23 @@ export default function Home() {
       <LoginButton className="fixed top-1 right-1" />
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 flex flex-col justify-center"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="">
+          <TypographyH1>Search for Qualifications</TypographyH1>
+          <br />
           <FormField
             control={form.control}
             className="flex flex-col justify-center"
             name="ethAddress"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center justify-center">
-                <FormLabel>Public Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your Address" {...field} />
+                  <Input placeholder="Enter a public address" {...field} />
                 </FormControl>
-                <FormDescription>
-                  Search for qualifications from a specific public address
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
+          <br />
           <Button type="submit">Search</Button>
         </form>
       </Form>

@@ -11,6 +11,9 @@ import {
 import SmartContractClient from "@/lib/web3/smart-contract-client";
 import { useEffect, useState } from "react";
 
+import TypographyH1 from "@/components/typography/typography-h1";
+import TypographyH2 from "@/components/typography/typography-h2";
+import TypographyH3 from "@/components/typography/typography-h3";
 import { Qualification } from "@/lib/structures";
 
 function QualificationsPage({ params }) {
@@ -55,12 +58,12 @@ function QualificationsPage({ params }) {
 
   return (
     <main className="h-screen p-10 flex flex-col gap-3">
-      <h1 className="text-3xl font-semibold">
-        Qualifications for {studentAddress}
-      </h1>
-      <h2 className="text-xl">
+      <TypographyH1>Qualifications for</TypographyH1>
+      <TypographyH2>{studentAddress}</TypographyH2>
+      <TypographyH3 className="text-xl">
         Name of Student: {isNameLoading ? "Loading..." : name}
-      </h2>
+      </TypographyH3>
+      <br />
       {isQualificationsLoading
         ? "Loading..."
         : qualifications.length === 0
@@ -93,7 +96,7 @@ function renderQualifications(qualifications) {
         <p>
           Qualification Type:{" "}
           {qualification.qualificationType ||
-          qualification.qualificationType === 0
+          qualification.qualificationType == 0
             ? Qualification[qualification.qualificationType]
             : "No Type"}
         </p>
