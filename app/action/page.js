@@ -1,4 +1,6 @@
 import LogoutButton from "@/components/logout-button";
+import TypographyH1 from "@/components/typography/typography-h1";
+import TypographyH2 from "@/components/typography/typography-h2";
 import getSession from "@/lib/actions/get-session";
 
 async function Page() {
@@ -9,14 +11,20 @@ async function Page() {
   }
 
   const universityPages = [
-    { name: "Edit Name", path: "/action/edit-name" },
-    { name: "Vote", path: "/action/vote" },
-    { name: "Add Qualification", path: "/action/add-qualification" },
+    { name: "Edit the displayed university name", path: "/action/edit-name" },
+    {
+      name: "Add a qualification to a student",
+      path: "/action/add-qualification",
+    },
+    { name: "Vote on university candidates", path: "/action/vote" },
   ];
 
   const studentPages = [
-    { name: "Edit Name", path: "/action/edit-name" },
-    { name: "Apply to be registered", path: "/action/apply-to-be-registered" },
+    { name: "Edit your displayed name", path: "/action/edit-name" },
+    {
+      name: "Apply to become a university candidate",
+      path: "/action/apply-to-be-registered",
+    },
   ];
 
   return (
@@ -24,22 +32,28 @@ async function Page() {
       <LogoutButton className="fixed top-1 right-1" />
       {isRegisteredUniversity ? (
         <div>
-          <h1>University</h1>
+          <TypographyH1>Hey, what do you want to do?</TypographyH1>
+          <br />
           <ul>
             {universityPages.map((page) => (
               <li key={page.path}>
-                <a href={page.path}>{page.name}</a>
+                <a href={page.path}>
+                  <TypographyH2 hover={true}>{page.name}</TypographyH2>
+                </a>
               </li>
             ))}
           </ul>
         </div>
       ) : (
         <div>
-          <h1>Student</h1>
+          <TypographyH1>Hey, what do you want to do?</TypographyH1>
+          <br />
           <ul>
             {studentPages.map((page) => (
               <li key={page.path}>
-                <a href={page.path}>{page.name}</a>
+                <a href={page.path}>
+                  <TypographyH2 hover={true}>{page.name}</TypographyH2>
+                </a>
               </li>
             ))}
           </ul>
