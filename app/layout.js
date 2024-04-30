@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} flex flex-col justify-center align-center items-center min-h-screen`}
       >
-        <main className="w-full max-w-[900px] p-10">{children}</main>
+        <main className="w-full max-w-[950px] p-10">{children}</main>
       </body>
     </html>
   );
