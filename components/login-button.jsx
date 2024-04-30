@@ -59,7 +59,7 @@ function LoginButton({ className }) {
 
   return (
     <Button className={className} onClick={redirectToAction}>
-      {address}
+      Go to your actions
     </Button>
   );
 }
