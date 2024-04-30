@@ -12,9 +12,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex flex-col justify-center align-center min-h-screen`}
+        className={`${inter.className} flex flex-col justify-center align-center items-center min-h-screen`}
       >
-        <main className="mx-auto">{children}</main>
+        <main className="w-full max-w-[900px] p-10">{children}</main>
       </body>
     </html>
   );

@@ -37,7 +37,7 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen p-20 flex flex-col justify-center">
+    <>
       <LoginButton className="fixed top-1 right-1" />
 
       <Form {...form}>
@@ -61,6 +61,6 @@ export default function Home() {
           <Button type="submit">Search</Button>
         </form>
       </Form>
-    </main>
+    </>
   );
 }
