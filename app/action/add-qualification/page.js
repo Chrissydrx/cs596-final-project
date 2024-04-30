@@ -11,24 +11,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Qualification } from "@/lib/structures";
 import SmartContractClient from "@/lib/web3/smart-contract-client";
 import { useState } from "react";
 
+// Form Validations
+const formSchema = z.object({
+  ethAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, {
+    message:
+      "Invalid Ethereum address. Must start with '0x' followed by 40 hexadecimal characters.",
+  }),
+  qualificationName: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+});
+
 function Page() {
-  const [studentAddress, setStudentAddress] = useState("");
-  const [qualificationName, setQualificationName] = useState("");
   const [qualificationDescription, setQualificationDescription] = useState("");
   const [qualificationType, setQualificationType] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleStudentAddress = (event) => {
-    setStudentAddress(event.target.value);
-  };
-
-  const handleQualificationName = (event) => {
-    setQualificationName(event.target.value);
-  };
 
   const handleQualificationDescription = (event) => {
     setQualificationDescription(event.target.value);
@@ -39,8 +51,7 @@ function Page() {
     console.log("Selected index:", index); // You can remove this line or use it for further processing
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (value) => {
 
     const indexQualificationType = Qualification.findIndex(
       (element) => element == qualificationType
@@ -49,8 +60,8 @@ function Page() {
     setIsLoading(true);
     try {
       await SmartContractClient().addQualification(
-        studentAddress,
-        qualificationName,
+        value.ethAddress,
+        value.qualificationName,
         qualificationDescription,
         indexQualificationType
       );
@@ -63,51 +74,101 @@ function Page() {
     }
   };
 
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      ethAddress: "",
+      qualificationName: "",
+    },
+  });
+
   return (
-    <>
+    <Form {...form}>
       <TypographyH1>What qualification would you like to add?</TypographyH1>
       <br />
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          value={studentAddress}
-          onChange={handleStudentAddress}
-          placeholder="Student's public address"
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          className="flex flex-col justify-center"
+          name="ethAddress"
+          render={({ field }) => (
+            <FormItem className="flex flex-col items-center justify-center">
+              <FormControl>
+                <Input
+                  placeholder="Student's public address"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
         <br />
 
-        <Input
-          type="text"
-          value={qualificationName}
-          onChange={handleQualificationName}
-          placeholder="Qualification Name"
+        <FormField
+          control={form.control}
+          className="flex flex-col justify-center"
+          name="qualificationName"
+          render={({ field }) => (
+            <FormItem className="flex flex-col items-center justify-center">
+              <FormControl>
+                <Input
+                  placeholder="Qualification Name"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <br />
+        <FormField
+          //control={form.control}
+          className="flex flex-col justify-center"
+          name="qualificationDescription"
+          render={({ field }) => (
+            <FormItem className="flex flex-col items-center justify-center">
+              <FormControl>
+                <Input
+                  type="text"
+                  value={qualificationDescription}
+                  onChange={handleQualificationDescription}
+                  placeholder="Qualification Description"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
         <br />
 
-        <Input
-          type="text"
-          value={qualificationDescription}
-          onChange={handleQualificationDescription}
-          placeholder="Qualification Description"
+        <FormField
+          //control={form.control}
+          className="flex flex-col justify-center"
+          name="qualificationType"
+          render={({ field }) => (
+            <FormItem className="flex flex-col items-center justify-center">
+              <FormControl>
+                <Select onValueChange={setQualificationType}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Qualification Type" {...field} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Qualification.map((qual, index) => (
+                      <SelectItem key={index} value={qual}>
+                        {qual}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-
-        <br />
-
-        <Select onValueChange={setQualificationType}>
-          <SelectTrigger>
-            <SelectValue placeholder="Qualification Type" />
-          </SelectTrigger>
-          <SelectContent>
-            {Qualification.map((qual, index) => (
-              <SelectItem key={index} value={qual}>
-                {qual}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
         <br />
 
         <Button type="submit" disabled={isLoading}>
@@ -115,7 +176,7 @@ function Page() {
         </Button>
       </form>
       <LoadingScreen visible={isLoading} />
-    </>
+    </Form>
   );
 }
 
