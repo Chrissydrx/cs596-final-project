@@ -1,5 +1,6 @@
 "use client";
 
+import TypographyP from "@/components/typography/typography-p";
 import SmartContractClient from "@/lib/web3/smart-contract-client";
 import { useEffect, useState } from "react";
 import AddressCard from "./address-card";
@@ -25,15 +26,19 @@ function AddressWrapper({ address }) {
 
   return (
     <>
-      {isLoading
-        ? "Loading..."
-        : applicants.map((applicant) => (
-            <AddressCard
-              key={applicant}
-              applicant={applicant}
-              setActionCount={setActionCount}
-            />
-          )) || "No applicants found!"}
+      {isLoading ? (
+        "Loading..."
+      ) : applicants.length > 0 ? (
+        applicants.map((applicant) => (
+          <AddressCard
+            key={applicant}
+            applicant={applicant}
+            setActionCount={setActionCount}
+          />
+        ))
+      ) : (
+        <TypographyP>No applicants found.</TypographyP>
+      )}
     </>
   );
 }
